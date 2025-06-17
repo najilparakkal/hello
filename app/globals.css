@@ -3,6 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --primary-color: #ffd72a;
 }
 
 @theme inline {
@@ -10,6 +11,11 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}
+html {
+  scroll-behavior: smooth;
+  overscroll-behavior-y: none;
+  -webkit-overflow-scrolling: touch; /* For iOS smoothness */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +28,90 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  overscroll-behavior-y: none;
+  scroll-snap-type: y proximity;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+
+  overflow-x: hidden;
+}
+
+[data-framer-motion] {
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Smooth scrolling optimization */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ffd72a;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ffd72a;
+}
+
+&:hover {
+  @media (hover: hover) {
+    color: var(--primary-color);
+  }
+}
+
+nav a {
+  position: relative;
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+.super-thin {
+  font-family: "Roboto", sans-serif;
+  font-weight: lighter;
+}
+
+.text-style {
+  font-family: "Norwester", sans-serif;
+}
+
+.montserrat {
+  font-family: "Pompiere";
+}
+
+.motion-image {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
 }
